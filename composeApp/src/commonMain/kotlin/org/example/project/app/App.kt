@@ -24,8 +24,13 @@ import org.jetbrains.compose.resources.painterResource
 
 import cmp_todo_mongodb.composeapp.generated.resources.Res
 import cmp_todo_mongodb.composeapp.generated.resources.compose_multiplatform
-import org.example.project.Greeting
+import org.example.project.data.database.MongoDB
+import org.example.project.presentation.components.TaskView
 import org.example.project.presentation.screen.home.HomeScreen
+import org.example.project.presentation.screen.home.HomeViewModel
+import org.example.project.presentation.screen.screen.TaskViewModel
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 
 val lightRedColor = Color(color = 0xFFF57D88)
@@ -33,6 +38,9 @@ val darkRedColor = Color(color = 0xFF77000B)
 @Composable
 @Preview
 fun App() {
+
+    initializeKoin()
+
     val lightColors = lightColorScheme(
         primary = lightRedColor,
         onPrimary = darkRedColor,
@@ -55,5 +63,18 @@ fun App() {
         Navigator(HomeScreen()){
             SlideTransition(it)
         }
+    }
+}
+
+val mongoModule = module {
+    single{ MongoDB() }
+    factory{ HomeViewModel(get()) }
+    factory{ TaskViewModel(get()) }
+
+}
+
+fun initializeKoin(){
+    startKoin {
+        modules(mongoModule)
     }
 }

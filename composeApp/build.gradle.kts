@@ -37,7 +37,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
-            implementation(compose.preview)
+
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
@@ -47,6 +47,8 @@ kotlin {
             implementation(libs.navigator.koin)
             implementation(libs.koin.core)
             implementation(libs.realm.library.base)
+
+            implementation(compose.materialIconsExtended)
 
         }
         commonTest.dependencies {
